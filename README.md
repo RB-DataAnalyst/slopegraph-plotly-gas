@@ -31,7 +31,7 @@ The project involves four main files:
 
 ### Activity Diagram
 To better illustrate the workflow of this project, I have created an activity diagram. This diagram outlines the steps taken to create and render the slopegraph, as well as the error handling mechanisms in place that helped me bring all the pieces together. 
-![Activity Chart](slopegraph-project/activityChart.PNG)
+![Activity Chart](./activityChart.png)
 
 ## How to Use
 
