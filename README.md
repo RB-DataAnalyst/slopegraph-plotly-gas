@@ -17,10 +17,11 @@ Inspired by *Storytelling with Data* by Cole Nussbaumer Knaflic, I wanted to lev
 
 The project involves four main files:
 
-1. **SlopeGraphMenu.gs**: The Google Apps Script file that creates a custom menu in Google Sheets and handles data fetching and image saving.
-2. **index.html**: The HTML file that defines the structure of the modal dialog displayed in Google Sheets.
-3. **styles.html**: The CSS file that styles the modal dialog and its contents.
-4. **scripts.html**: The JavaScript file that includes Plotly.js and contains the logic for drawing the slopegraph and handling user interactions.
+1. [**SlopeGraphMain.gs**](slopegraph-project/SlopeGraphMain.gs): The Google Apps Script file that creates a custom menu in Google Sheets and handles data fetching and image saving.
+2. [**index.html**](slopegraph-project/index.html): The HTML file that defines the structure of the modal dialog displayed in Google Sheets.
+3. [**styles.html**](slopegraph-project/styles.html): The CSS file that styles the modal dialog and its contents.
+4. [**scripts.html**](slopegraph-project/scripts.html): The JavaScript file that includes Plotly.js and contains the logic for drawing the slopegraph and handling user interactions.
+
 
 ## Features
 
