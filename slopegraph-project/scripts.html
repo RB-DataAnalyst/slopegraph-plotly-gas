@@ -1,0 +1,173 @@
+<!-- Load the Plotly.js library -->
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<script>
+  // Object to store category-specific colors
+  let categoryColors = {};
+
+  /**
+   * Draws a slope graph chart using the provided data.
+   *
+   * @param {Array} data - The data to plot, where the first row contains headers and subsequent rows contain data.
+   * @param {string} title - The title of the chart.
+   * @param {boolean} displayAsPercentage - Whether to display data as percentages.
+   */
+  function drawChart(data, title, displayAsPercentage = false) {
+    try {
+      const headers = data[0];
+      const categories = data.slice(1).map(row => row[0]);
+      const year1 = data.slice(1).map(row => displayAsPercentage ? `${(row[1] * 100).toFixed(1)}%` : row[1]);
+      const year2 = data.slice(1).map(row => displayAsPercentage ? `${(row[2] * 100).toFixed(1)}%` : row[2]);
+
+      const traces = [];
+      const annotations = [];
+      const defaultColor = 'black';
+
+      // Create traces and annotations for each category
+      categories.forEach((category, i) => {
+        const color = categoryColors[category] || defaultColor;
+        const y1 = parseFloat(year1[i]);
+        const y2 = parseFloat(year2[i]);
+
+        traces.push({
+          x: [1, 2],
+          y: [y1, y2],
+          mode: 'lines+markers',
+          name: category,
+          line: { width: 2, color },
+          marker: { color },
+        });
+
+        annotations.push(
+          {
+            x: 1,
+            y: y1,
+            xref: 'x',
+            yref: 'y',
+            text: `${category}: ${year1[i]}`,
+            showarrow: true,
+            arrowhead: 7,
+            ax: -60,
+            ay: 0,
+          },
+          {
+            x: 2,
+            y: y2,
+            xref: 'x',
+            yref: 'y',
+            text: `${year2[i]}`,
+            showarrow: true,
+            arrowhead: 7,
+            ax: 25,
+            ay: 0,
+          }
+        );
+      });
+
+      // Define the layout of the chart
+      const layout = {
+        title: { 
+          text: title,
+          x: 0
+        },
+        xaxis: {
+          title: '',
+          tickvals: [1, 2],
+          ticktext: [headers[1], headers[2]], 
+          showgrid: false,
+          automargin: true
+        },
+        yaxis: {
+          title: '',
+          showticklabels: false,
+          showgrid: false,
+          zeroline: false
+        },
+        annotations: annotations,
+        showlegend: false,
+        margin: {
+          l: 50,
+          r: 50,
+          t: 50,
+          b: 50
+        }
+      };
+
+      // Render the plot in the 'chart' div
+      Plotly.newPlot('chart', traces, layout);
+
+      // Populate the category dropdown with options
+      const categoryDropdown = document.getElementById('category');
+      categoryDropdown.innerHTML = '<option value="">Make a selection</option>';
+      categories.forEach(category => {
+        const option = document.createElement('option');
+        option.value = category;
+        option.text = category;
+        categoryDropdown.add(option);
+      });
+
+      // Reset color dropdown to black
+      document.getElementById('color').value = 'black';
+    } catch (error) {
+      console.error('Error drawing chart:', error);
+      alert('An error occurred while drawing the chart. Please check the console for details.');
+    }
+  }
+
+  /**
+   * Fetches data from the Google Sheet and draws the chart.
+   */
+  function fetchDataAndDrawChart() {
+    try {
+      const range = document.getElementById('range').value;
+      const title = document.getElementById('title').value;
+      const category = document.getElementById('category').value;
+      const color = document.getElementById('color').value;
+      const displayAsPercentage = document.getElementById('displayAsPercentage').checked;
+
+      // Update category color if a category is selected
+      if (category) {
+        categoryColors[category] = color;
+      }
+
+      // Fetch data from Google Sheets and draw the chart
+      google.script.run.withSuccessHandler(data => {
+        drawChart(data, title, displayAsPercentage);
+      }).withFailureHandler(error => {
+        console.error('Error fetching data from Google Sheets:', error);
+        alert('An error occurred while fetching data from Google Sheets. Please check the console for details.');
+      }).getSheetData(range);
+    } catch (error) {
+      console.error('Error in fetchDataAndDrawChart:', error);
+      alert('An error occurred while preparing to fetch data. Please check the console for details.');
+    }
+  }
+
+  /**
+   * Saves the chart as an image and inserts it into the Google Sheet.
+   */
+  function saveChartAsImage() {
+    try {
+      Plotly.toImage(document.getElementById('chart'), { format: 'png', width: 450, height: 400 })
+        .then(dataUrl => {
+          google.script.run.withSuccessHandler(() => {
+            const notification = document.getElementById('notification');
+            notification.style.display = 'block';
+            notification.innerText = 'Chart has been added to the sheet.';
+            setTimeout(() => {
+              notification.style.display = 'none';
+            }, 3000);
+          }).withFailureHandler(error => {
+            console.error('Error saving chart image:', error);
+            alert('An error occurred while saving the chart image. Please check the console for details.');
+          }).saveChartImage(dataUrl); 
+        })
+        .catch(error => {
+          console.error('Error converting chart to image:', error);
+          alert('An error occurred while converting the chart to an image. Please check the console for details.');
+        });
+    } catch (error) {
+      console.error('Error in saveChartAsImage:', error);
+      alert('An error occurred while saving the chart as an image. Please check the console for details.');
+    }
+  }
+</script>
