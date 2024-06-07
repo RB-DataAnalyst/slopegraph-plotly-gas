@@ -68,5 +68,5 @@ By combining various functionalities of Plotly.js, such as lines and markers, an
 
 - **Lines and Markers**: Used Plotly.js’s `lines+markers` mode to plot lines connecting two points for each category. This creates the basic structure of the slopegraph, where each line represents the change between two points in time.
 - **Annotations**: Added annotations to label each data point with the category name and value. This mimics the simplicity of slopegraphs by providing clear, direct labels on the graph itself, avoiding the need for legends or additional context.
-- **Custom Colors**: Allowed users to select custom colors for each category. This helps distinguish different categories visually, which is particularly useful when the graph includes multiple lines.
+- **Custom Colors**: Allowed users to select custom colors for each category. This helps to highlight particular points of interest. 
 - **Data Formatting**: Included the option to display values as percentages, which is a common for slopegraphs. This was handled by formatting the data before passing it to Plotly.js for rendering.
