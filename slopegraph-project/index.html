@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- Include external styles from the 'styles' file -->
+  <?!= include('styles'); ?>
+</head>
+
+<body>
+  <div class="container">
+    <!-- Form group to collect user inputs for the slope graph -->
+    <div class="form-group">
+      <!-- Row for inputting range and title, displayed in two columns -->
+      <div class="form-row two-column">
+        <label for="range">Range:</label>
+        <input type="text" id="range" name="range">
+
+        <label for="title">Title:</label>
+        <input type="text" id="title" name="title" class="title-input">
+      </div>
+      <!-- Row for selecting category, color, and percentage display option, displayed in three columns -->
+      <div class="form-row three-column">
+        <label for="category">Category:</label>
+        <select id="category" name="category">
+          <option value="">Make a selection</option>
+        </select>
+
+        <label for="color">Color:</label>
+        <select id="color" name="color">
+          <option value="black">Black</option>
+          <option value="red">Red</option>
+          <option value="blue">Blue</option>
+          <option value="green">Green</option>
+          <option value="orange">Orange</option>
+          <option value="purple">Purple</option>
+        </select>
+
+        <label for="displayAsPercentage">Percent:</label>
+        <input type="checkbox" id="displayAsPercentage" name="displayAsPercentage">
+      </div>
+    </div>
+
+    <!-- Row for action buttons to draw and save the chart -->
+    <div class="button-row">
+      <button onclick="fetchDataAndDrawChart()">Draw Chart</button>
+      <button onclick="saveChartAsImage()">Save Chart as Image</button>
+    </div>
+
+    <!-- Container to display the generated chart -->
+    <div id="chart"></div>
+
+    <!-- Container to display notifications or messages to the user -->
+    <div id="notification"></div>
+  </div>
+
+  <!-- Include external scripts from the 'scripts' file -->
+  <?!= include('scripts'); ?>
+</body>
+
+</html>
