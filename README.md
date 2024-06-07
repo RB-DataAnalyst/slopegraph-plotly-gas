@@ -8,6 +8,11 @@ This project demonstrates how to create a custom slopegraph in Google Sheets usi
 
 Inspired by *Storytelling with Data* by Cole Nussbaumer Knaflic, I wanted to leverage the simplicity and effectiveness of slopegraphs to visualize changes over time. While Google Sheets doesn’t natively support slopegraphs, I aimed to develop a custom solution that integrates advanced visualizations directly into the tools used by non-technical stakeholders.
 
+## Tools Used
+
+- **Google Apps Script**: Automates tasks and extends the functionality of Google Sheets.
+- **Plotly.js**: Creates interactive and customizable visualizations.
+
 ## Project Structure
 
 The project involves four main files:
@@ -24,10 +29,9 @@ The project involves four main files:
 - **Data Formatting**: Supports displaying values as percentages, formatted before rendering.
 - **Seamless Integration**: Embeds visualizations directly in Google Sheets for enhanced accessibility and collaboration.
 
-## Tools Used
-
-- **Google Apps Script**: Automates tasks and extends the functionality of Google Sheets.
-- **Plotly.js**: Creates interactive and customizable visualizations.
+### Activity Diagram
+To better illustrate the workflow of this project, I have created an activity diagram. This diagram outlines the steps taken to create and render the slopegraph, as well as the error handling mechanisms in place that helped me bring all the pieces together. 
+![Activity Chart](slopegraph-project/activityChart.PNG)
 
 ## How to Use
 
@@ -61,12 +65,3 @@ The project involves four main files:
     - Enter the range of your data, title, and other options in the modal dialog.
     - Click `Draw Chart` to visualize the slopegraph.
     - Optionally, save the chart as an image directly into your Google Sheets.
-
-## Recreating the Simplicity of Slopegraphs with Plotly
-
-By combining various functionalities of Plotly.js, such as lines and markers, annotations, custom colors, and pre-formatted data for percentages, I was able to effectively recreate the simplicity and clarity of slopegraphs to visualize changes between two points over time.
-
-- **Lines and Markers**: Used Plotly.js’s `lines+markers` mode to plot lines connecting two points for each category. This creates the basic structure of the slopegraph, where each line represents the change between two points in time.
-- **Annotations**: Added annotations to label each data point with the category name and value. This mimics the simplicity of slopegraphs by providing clear, direct labels on the graph itself, avoiding the need for legends or additional context.
-- **Custom Colors**: Allowed users to select custom colors for each category. This helps to highlight particular points of interest. 
-- **Data Formatting**: Included the option to display values as percentages, which is a common for slopegraphs. This was handled by formatting the data before passing it to Plotly.js for rendering.
